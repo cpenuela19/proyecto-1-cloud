@@ -18,3 +18,5 @@ instance/
 
 dbapp.sqlite
 dbapp.sqlite-journal
+
+chroma_db/chroma.sqlite3
