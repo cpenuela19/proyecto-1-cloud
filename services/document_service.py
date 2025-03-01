@@ -2,8 +2,7 @@ import os
 from flask import jsonify, send_file
 from models.database import db
 from models.document import Document, DocumentSchema
-from models.vector_db import vector_db  # FAISS
-from services.embedding_service import EmbeddingService  # Generación de embeddings
+from models.chroma_db import chroma_db  # Migramos de FAISS a ChromaDB
 
 document_schema = DocumentSchema()
 documents_schema = DocumentSchema(many=True)
@@ -54,8 +53,6 @@ class DocumentService:
 
     @staticmethod
     def process_document(document_id, text):
-        """Genera embeddings y los guarda en FAISS"""
-        embedding_vector = EmbeddingService.generate_embedding(text)
-        vector_db.add_embeddings([embedding_vector])
-
-        return {"message": "Documento procesado con IA", "embedding": embedding_vector}, 201
+        """Genera embeddings y los guarda en ChromaDB"""
+        response = chroma_db.add_embedding(document_id, text)
+        return response

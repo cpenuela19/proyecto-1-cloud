@@ -1,7 +1,5 @@
-# Model used to store the user query information
-
 from models.database import db
-from marshmallow import fields, Schema
+from marshmallow import fields, Schema, validate
 from datetime import datetime
 
 class UserQuery(db.Model):
@@ -17,7 +15,7 @@ class UserQuery(db.Model):
 
 class UserQuerySchema(Schema):
     id = fields.Int()
-    user_id = fields.Int()
-    query_text = fields.Str()
-    response_text = fields.Str()
+    user_id = fields.Int(required=True)
+    query_text = fields.Str(required=True, validate=validate.Length(min=5))
+    response_text = fields.Str(required=True)
     created_at = fields.DateTime()

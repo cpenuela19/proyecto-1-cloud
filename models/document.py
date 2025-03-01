@@ -1,7 +1,5 @@
-# Model to store the document information uploaded by the user
-
 from models.database import db
-from marshmallow import fields, Schema
+from marshmallow import fields, Schema, validate
 from datetime import datetime
 
 class Document(db.Model):
@@ -18,7 +16,7 @@ class Document(db.Model):
 
 class DocumentSchema(Schema):
     id = fields.Int()
-    user_id = fields.Int()
-    filename = fields.Str()
-    file_url = fields.Str()
+    user_id = fields.Int(required=True)
+    filename = fields.Str(required=True, validate=validate.Length(min=1))
+    file_url = fields.Str(required=True)
     uploaded_at = fields.DateTime()

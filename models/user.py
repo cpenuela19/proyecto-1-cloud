@@ -1,7 +1,5 @@
-# Model to store the user information
-
 from models.database import db
-from marshmallow import fields, Schema
+from marshmallow import fields, Schema, validate
 import hashlib
 
 class User(db.Model):
@@ -23,5 +21,5 @@ class User(db.Model):
 
 class UserSchema(Schema):
     id = fields.Int()
-    username = fields.Str()
-    email = fields.Email()
+    username = fields.Str(required=True, validate=validate.Length(min=3))
+    email = fields.Email(required=True)

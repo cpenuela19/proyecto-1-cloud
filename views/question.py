@@ -8,10 +8,10 @@ class AskQuestion(Resource):
     def post(self):
         data = request.json
         question = data.get("question")
-        collection = data.get("collection")
+        collection = data.get("collection", "documentos")  # Valor por defecto
 
-        if not question or not collection:
-            return {"message": "Debe proporcionar una pregunta y la colección"}, 400
+        if not question:
+            return {"message": "Debe proporcionar una pregunta"}, 400
 
         response = QuestionService.answer_question({"question": question, "collection": collection})
         return jsonify(response)
