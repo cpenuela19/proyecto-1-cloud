@@ -1,4 +1,5 @@
 from models.database import db
+from models.userQuery import UserQuery
 from marshmallow import fields, Schema, validate
 import hashlib
 

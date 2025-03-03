@@ -20,17 +20,41 @@ class ChromaDB:
     def add_embedding(self, document_id, text):
         """Convierte texto en embeddings y lo almacena en Chroma"""
         if not self.vector_store:
+            print("❌ ChromaDB no está disponible")
             return {"message": "ChromaDB no está disponible"}
 
-        doc = Document(page_content=text, metadata={"document_id": document_id})
-        self.vector_store.add_documents([doc])
-        return {"message": "Embedding almacenado en Chroma"}
+        print(f"📌 Generando embeddings para documento {document_id}...")
 
-    def search(self, query, k=5):
-        """Realiza una búsqueda semántica"""
+        try:
+            doc = Document(page_content=text, metadata={"document_id": document_id})
+            embeddings = self.embeddings.embed_documents([text])
+
+            print(f"✅ Embeddings generados: {embeddings[:5]}")  # Solo muestra los primeros 5
+
+            self.vector_store.add_documents([doc])
+
+            response = {"message": "Embedding almacenado en Chroma", "embedding": embeddings}
+            print(f"📌 Respuesta final de add_embedding: {response}")
+            return response
+
+        except Exception as e:
+            print(f"❌ Error generando embeddings: {e}")
+            return {"message": f"Error generando embeddings: {e}"}, 500
+
+
+    def search(self, query, k=5, with_score=False):
+        """Realiza una búsqueda semántica en ChromaDB"""
         if not self.vector_store:
+            print("❌ ChromaDB no está disponible")
             return []
-        return self.vector_store.similarity_search(query, k=k)
+
+        if with_score:
+            results = self.vector_store.similarity_search_with_score(query, k=k)
+        else:
+            results = self.vector_store.similarity_search(query, k=k)
+
+        print(f"🔎 Resultados de búsqueda: {results}")
+        return results
 
 # Instancia global de ChromaDB
 chroma_db = ChromaDB()

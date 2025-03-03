@@ -33,7 +33,7 @@ class AuthService:
             if not user or not user.check_password(data["password"]):
                 return {"message": "Credenciales incorrectas"}, 401
 
-            access_token = create_access_token(identity=user.id)
+            access_token = create_access_token(identity=str(user.id))
 
             return {
                 "message": "Inicio de sesión exitoso",

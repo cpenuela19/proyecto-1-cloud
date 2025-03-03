@@ -55,4 +55,35 @@ class DocumentService:
     def process_document(document_id, text):
         """Genera embeddings y los guarda en ChromaDB"""
         response = chroma_db.add_embedding(document_id, text)
+
+        # Depuración: Ver exactamente qué devuelve ChromaDB
+        print(f"📌 Respuesta de ChromaDB: {response}")
+
         return response
+
+    @staticmethod
+    def search_similar(query_text):
+        """Busca documentos similares en ChromaDB y devuelve detalles con score y filename."""
+        try:
+            # 🔹 Usamos `similarity_search_with_score()` en lugar de `similarity_search()`
+            results = chroma_db.search(query_text, k=5, with_score=True)
+
+            # Convertir los resultados en un formato JSON serializable
+            similar_documents = []
+            for doc, score in results:
+                document_id = doc.metadata.get("document_id", "N/A")
+                
+                # Obtener el documento original de la base de datos (para filename)
+                document = Document.query.get(document_id)
+                
+                similar_documents.append({
+                    "id": document_id,
+                    "score": round(score, 3) if score else "N/A",  # 🔹 Score de similitud redondeado
+                    "filename": document.filename if document else "Desconocido"
+                })
+
+            return {"similar_documents": similar_documents}, 200
+
+        except Exception as e:
+            return {"message": f"Error en la búsqueda semántica: {str(e)}"}, 500
+
