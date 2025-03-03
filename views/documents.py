@@ -39,3 +39,10 @@ class DeleteDocument(Resource):
     def delete(self, document_id):
         response = DocumentService.delete_document(document_id)
         return response
+    
+class ListIndexedDocuments(Resource):
+    @jwt_required()
+    def get(self):
+        """Devuelve una lista de documentos almacenados en ChromaDB"""
+        response = DocumentService.list_indexed_documents()
+        return response

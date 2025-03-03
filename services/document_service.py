@@ -1,8 +1,8 @@
 import os
-from flask import jsonify, send_file
+from flask import send_file
 from models.database import db
 from models.document import Document, DocumentSchema
-from models.chroma_db import chroma_db  # Migramos de FAISS a ChromaDB
+from models.chroma_db import chroma_db  # ChromaDB para embeddings
 
 document_schema = DocumentSchema()
 documents_schema = DocumentSchema(many=True)
@@ -55,35 +55,38 @@ class DocumentService:
     def process_document(document_id, text):
         """Genera embeddings y los guarda en ChromaDB"""
         response = chroma_db.add_embedding(document_id, text)
-
-        # Depuración: Ver exactamente qué devuelve ChromaDB
         print(f"📌 Respuesta de ChromaDB: {response}")
-
         return response
 
     @staticmethod
     def search_similar(query_text):
         """Busca documentos similares en ChromaDB y devuelve detalles con score y filename."""
         try:
-            # 🔹 Usamos `similarity_search_with_score()` en lugar de `similarity_search()`
             results = chroma_db.search(query_text, k=10, with_score=True)
 
-            # Convertir los resultados en un formato JSON serializable
+            # Filtrar resultados que tengan document_id válido
             similar_documents = []
             for doc, score in results:
-                document_id = doc.metadata.get("document_id", "N/A")
-                
-                # Obtener el documento original de la base de datos (para filename)
-                document = Document.query.get(document_id)
-                
-                similar_documents.append({
-                    "id": document_id,
-                    "score": round(score, 3) if score else "N/A",  # 🔹 Score de similitud redondeado
-                    "filename": document.filename if document else "Desconocido"
-                })
+                document_id = doc.metadata.get("document_id")
+                document = Document.query.get(document_id) if document_id else None
+
+                if document:
+                    similar_documents.append({
+                        "id": document_id,
+                        "score": round(score, 3) if score else "N/A",
+                        "filename": document.filename
+                    })
+
+            if not similar_documents:
+                return {"message": "No se encontraron documentos relevantes"}, 404
 
             return {"similar_documents": similar_documents}, 200
 
         except Exception as e:
             return {"message": f"Error en la búsqueda semántica: {str(e)}"}, 500
 
+    @staticmethod
+    def list_indexed_documents():
+        """Devuelve una lista de documentos almacenados en ChromaDB"""
+        indexed_docs = chroma_db.list_documents()
+        return {"indexed_documents": indexed_docs}, 200
