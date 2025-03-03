@@ -1,11 +1,9 @@
-Instalar los requerimientos del proyecto:
-```bash
-pip install -r requirements.txt
-```
+### Proyecto 1 - Grupo 6
 
-Para correr el proyecto:
-```bash
-flask --app app run
-```
-en consola:
-ollama pull llama3:8b
+**Integrantes:**
+
+| Nombre                     | Correo Electrónico                  |
+|----------------------------|-------------------------------------|
+| Carlos Peñuela Mejia       | ce.penuela20@uniandes.edu.co       |
+| Santiago Osorio Osorio     | s.osorioo@uniandes.edu.co          |
+| Cristian Segura Benavides  | c.segurab@uniandes.edu.co          |
