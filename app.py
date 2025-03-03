@@ -9,7 +9,7 @@ from config import Config  # Configuración modular
 
 # Importar Vistas (Endpoints)
 from views.auth import SignUp, LogIn
-from views.documents import UploadDocument, ListDocuments, DownloadDocument, DeleteDocument
+from views.documents import UploadDocument, ListDocuments, DownloadDocument, DeleteDocument, ListIndexedDocuments
 from views.processing import ProcessDocument, SearchSimilarDocuments
 from views.question import AskQuestion  # 🔥 Nuevo endpoint para preguntas
 
@@ -34,6 +34,7 @@ api.add_resource(DeleteDocument, "/delete/<int:document_id>")
 api.add_resource(ProcessDocument, "/process")
 api.add_resource(SearchSimilarDocuments, "/search")
 api.add_resource(AskQuestion, "/ask")  # 🔥 Nuevo endpoint de preguntas
+api.add_resource(ListIndexedDocuments, "/list_indexed")
 
 if __name__ == "__main__":
     with app.app_context():

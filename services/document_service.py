@@ -66,7 +66,7 @@ class DocumentService:
         """Busca documentos similares en ChromaDB y devuelve detalles con score y filename."""
         try:
             # 🔹 Usamos `similarity_search_with_score()` en lugar de `similarity_search()`
-            results = chroma_db.search(query_text, k=5, with_score=True)
+            results = chroma_db.search(query_text, k=10, with_score=True)
 
             # Convertir los resultados en un formato JSON serializable
             similar_documents = []
