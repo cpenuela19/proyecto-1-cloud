@@ -1,5 +1,5 @@
 import os
-from flask import send_file
+from flask import send_file, jsonify
 from models.database import db
 from models.document import Document, DocumentSchema
 from models.chroma_db import chroma_db  # ChromaDB para embeddings
@@ -54,9 +54,35 @@ class DocumentService:
     @staticmethod
     def process_document(document_id, text):
         """Genera embeddings y los guarda en ChromaDB"""
-        response = chroma_db.add_embedding(document_id, text)
-        print(f"📌 Respuesta de ChromaDB: {response}")
-        return response
+        print(f"📌 Procesando documento {document_id}...")
+
+        try:
+            response = chroma_db.add_embedding(document_id, text)
+            print(f"📌 Respuesta completa de ChromaDB: {response}")
+        except Exception as e:
+            print(f"🔥 Error inesperado al llamar a add_embedding: {e}")
+            return jsonify({"message": f"Error inesperado: {e}"}), 500
+
+        if response is None:
+            print("❌ ChromaDB devolvió None.")
+            return jsonify({"message": "Error: ChromaDB devolvió None"}), 500
+
+        if not isinstance(response, dict):
+            print(f"❌ ChromaDB devolvió un tipo inesperado: {type(response)}")
+            return jsonify({"message": "Error: Respuesta inesperada de ChromaDB"}), 500
+
+        if "message" not in response:
+            print("❌ ChromaDB no devolvió un mensaje válido.")
+            return jsonify({"message": "Error: Mensaje no encontrado en la respuesta"}), 500
+
+        # Aceptamos tanto "Documento almacenado" como "Documento ya indexado"
+        if response["message"] in ["Documento almacenado en ChromaDB", "Documento ya indexado en ChromaDB"]:
+            print("✅ Documento procesado correctamente.")
+            return jsonify({"message": "Documento procesado correctamente"}), 200
+
+        print("❌ No se pudo generar el embedding.")
+        return jsonify({"message": "No se pudo generar el embedding"}), 500
+
 
     @staticmethod
     def search_similar(query_text):

@@ -1,0 +1,387 @@
+{
+	"info": {
+		"_postman_id": "7ba0d579-93e4-4256-b175-df02b749eac9",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39631883"
+	},
+	"item": [
+		{
+			"name": "Sign up",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"user\",\r\n  \"email\": \"usuario1@example.com\",\r\n  \"password\": \"pass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/signup",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log In",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"usuario1@example.com\",\r\n  \"password\": \"pass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subir documento",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MTAwMDk4MiwianRpIjoiOTkwOGQ4NmMtODJjYy00ZWJiLWI5YWYtNDk5OTllOTlkMDU0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NDEwMDA5ODIsImNzcmYiOiI4ZDhmYjA1Zi03ZThiLTRiZWYtYTk4Zi03MWJlNDRhMDY3MWYiLCJleHAiOjE3NDEwMDE4ODJ9.5v6PNu3ne7h1M6vTOiCkRbgx2Je2lY-RJ1mwciXUCvY",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/cpenu/Downloads/INCYTU_18-012.pdf"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/upload",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hacer una pregunta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Historial de consultas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar documentos",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MTAwMDk4MiwianRpIjoiOTkwOGQ4NmMtODJjYy00ZWJiLWI5YWYtNDk5OTllOTlkMDU0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NDEwMDA5ODIsImNzcmYiOiI4ZDhmYjA1Zi03ZThiLTRiZWYtYTk4Zi03MWJlNDRhMDY3MWYiLCJleHAiOjE3NDEwMDE4ODJ9.5v6PNu3ne7h1M6vTOiCkRbgx2Je2lY-RJ1mwciXUCvY",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5000/documents",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Descargar documentos",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MDg3NDIyOSwianRpIjoiM2VlNDcxODQtYjMzNS00YjJhLTkzMDMtNjcwMDk4YjNlNTE2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NDA4NzQyMjksImNzcmYiOiI4NGQ0MWU5ZC1mODFlLTQ1MDYtYjc4YS0zODFhOTY3YzEwOTIiLCJleHAiOjE3NDA4NzUxMjl9.TrNpD2l_ubsXadRY1eYUH_4dHbh164Isp6oQw5TbkhE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5000/download/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"download",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar documento",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Procesar documento",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MTAwMDk4MiwianRpIjoiOTkwOGQ4NmMtODJjYy00ZWJiLWI5YWYtNDk5OTllOTlkMDU0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NDEwMDA5ODIsImNzcmYiOiI4ZDhmYjA1Zi03ZThiLTRiZWYtYTk4Zi03MWJlNDRhMDY3MWYiLCJleHAiOjE3NDEwMDE4ODJ9.5v6PNu3ne7h1M6vTOiCkRbgx2Je2lY-RJ1mwciXUCvY",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"document_id\": 1,\r\n  \"text\": \"Texto real del documento INCYTU_18-012.pdf sobre inteligencia artificial.\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/process",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"process"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listar documentos indexados chormadb",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MTAwMDk4MiwianRpIjoiOTkwOGQ4NmMtODJjYy00ZWJiLWI5YWYtNDk5OTllOTlkMDU0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NDEwMDA5ODIsImNzcmYiOiI4ZDhmYjA1Zi03ZThiLTRiZWYtYTk4Zi03MWJlNDRhMDY3MWYiLCJleHAiOjE3NDEwMDE4ODJ9.5v6PNu3ne7h1M6vTOiCkRbgx2Je2lY-RJ1mwciXUCvY",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/list_indexed",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"list_indexed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "busqueda",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MTAwMDk4MiwianRpIjoiOTkwOGQ4NmMtODJjYy00ZWJiLWI5YWYtNDk5OTllOTlkMDU0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NDEwMDA5ODIsImNzcmYiOiI4ZDhmYjA1Zi03ZThiLTRiZWYtYTk4Zi03MWJlNDRhMDY3MWYiLCJleHAiOjE3NDEwMDE4ODJ9.5v6PNu3ne7h1M6vTOiCkRbgx2Je2lY-RJ1mwciXUCvY",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"query\": \"inteligencia artificial\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/search",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "preguntar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MTAwMDk4MiwianRpIjoiOTkwOGQ4NmMtODJjYy00ZWJiLWI5YWYtNDk5OTllOTlkMDU0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NDEwMDA5ODIsImNzcmYiOiI4ZDhmYjA1Zi03ZThiLTRiZWYtYTk4Zi03MWJlNDRhMDY3MWYiLCJleHAiOjE3NDEwMDE4ODJ9.5v6PNu3ne7h1M6vTOiCkRbgx2Je2lY-RJ1mwciXUCvY",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"question\": \"¿Qué dice el documento sobre inteligencia artificial?\",\r\n  \"collection\": \"documentos\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/ask",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"ask"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
