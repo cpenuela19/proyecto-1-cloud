@@ -15,13 +15,12 @@ class ProcessDocument(Resource):
 
         response = DocumentService.process_document(document_id, document_text)
 
-        # Verificar que el embedding se generó correctamente
         if "embedding" not in response:
             return {"message": "No se pudo generar el embedding"}, 500
 
         return response
 
-class SearchSimilarDocuments(Resource):  # ✅ Asegúrate de que esta clase está bien definida
+class SearchSimilarDocuments(Resource):
     @jwt_required()
     def post(self):
         query_text = request.json.get("query")

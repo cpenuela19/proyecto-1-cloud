@@ -8,7 +8,7 @@ document_schema = DocumentSchema()
 documents_schema = DocumentSchema(many=True)
 
 UPLOAD_FOLDER = "uploads/"
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)  # Asegurar que la carpeta exista
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 class DocumentService:
     @staticmethod
@@ -45,7 +45,7 @@ class DocumentService:
         if not document:
             return {"message": "Documento no encontrado"}, 404
 
-        os.remove(document.file_url)  # Borrar archivo físico
+        os.remove(document.file_url)
         db.session.delete(document)
         db.session.commit()
 
@@ -54,33 +54,32 @@ class DocumentService:
     @staticmethod
     def process_document(document_id, text):
         """Genera embeddings y los guarda en ChromaDB"""
-        print(f"📌 Procesando documento {document_id}...")
+        print(f"Procesando documento {document_id}...")
 
         try:
             response = chroma_db.add_embedding(document_id, text)
-            print(f"📌 Respuesta completa de ChromaDB: {response}")
+            print(f"Respuesta completa de ChromaDB: {response}")
         except Exception as e:
             print(f"🔥 Error inesperado al llamar a add_embedding: {e}")
             return jsonify({"message": f"Error inesperado: {e}"}), 500
 
         if response is None:
-            print("❌ ChromaDB devolvió None.")
+            print("ChromaDB devolvió None.")
             return jsonify({"message": "Error: ChromaDB devolvió None"}), 500
 
         if not isinstance(response, dict):
-            print(f"❌ ChromaDB devolvió un tipo inesperado: {type(response)}")
+            print(f"ChromaDB devolvió un tipo inesperado: {type(response)}")
             return jsonify({"message": "Error: Respuesta inesperada de ChromaDB"}), 500
 
         if "message" not in response:
-            print("❌ ChromaDB no devolvió un mensaje válido.")
+            print("ChromaDB no devolvió un mensaje válido.")
             return jsonify({"message": "Error: Mensaje no encontrado en la respuesta"}), 500
 
-        # Aceptamos tanto "Documento almacenado" como "Documento ya indexado"
         if response["message"] in ["Documento almacenado en ChromaDB", "Documento ya indexado en ChromaDB"]:
             print("✅ Documento procesado correctamente.")
             return jsonify({"message": "Documento procesado correctamente"}), 200
 
-        print("❌ No se pudo generar el embedding.")
+        print("No se pudo generar el embedding.")
         return jsonify({"message": "No se pudo generar el embedding"}), 500
 
 
@@ -90,7 +89,6 @@ class DocumentService:
         try:
             results = chroma_db.search(query_text, k=10, with_score=True)
 
-            # Filtrar resultados que tengan document_id válido
             similar_documents = []
             for doc, score in results:
                 document_id = doc.metadata.get("document_id")

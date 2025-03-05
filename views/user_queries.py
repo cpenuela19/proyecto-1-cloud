@@ -8,7 +8,6 @@ class UserQueryHistory(Resource):
         user_id = get_jwt_identity()
         response = QueryService.get_user_queries(user_id)
 
-        # Verificar si el usuario no tiene historial de consultas
         if not response:
             return {"message": "No hay consultas registradas para este usuario"}, 404
 

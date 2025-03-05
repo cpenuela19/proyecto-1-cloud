@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from flask_restful import Resource
 from flask_jwt_extended import create_access_token
-from services.auth_service import AuthService  # Nueva capa de servicio
+from services.auth_service import AuthService
 
 class SignUp(Resource):
     def post(self):

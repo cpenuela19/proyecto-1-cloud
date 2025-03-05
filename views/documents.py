@@ -21,7 +21,7 @@ class UploadDocument(Resource):
         response = DocumentService.upload_document(user_id, file)
         return response
 
-class ListDocuments(Resource):  # ✅ Asegúrate de que esta clase está bien definida
+class ListDocuments(Resource):
     @jwt_required()
     def get(self):
         user_id = get_jwt_identity()

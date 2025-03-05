@@ -11,7 +11,7 @@ class Document(db.Model):
     file_url = db.Column(db.String(512), nullable=False)
     uploaded_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    user = db.relationship("User", back_populates="documents")  # ✅ Eliminado `Embedding`
+    user = db.relationship("User", back_populates="documents")
 
 class DocumentSchema(Schema):
     id = fields.Int()

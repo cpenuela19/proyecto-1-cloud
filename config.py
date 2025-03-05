@@ -12,5 +12,3 @@ class Config:
     # 🔹 Configuración de ChromaDB
     CHROMA_PATH = os.getenv("CHROMA_PATH", "chroma_db")
 
-    # 🔹 Redis (para futuras tareas en segundo plano con Celery)
-    REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")

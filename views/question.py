@@ -8,7 +8,7 @@ class AskQuestion(Resource):
     def post(self):
         data = request.json
         question = data.get("question")
-        collection = data.get("collection", "documentos")  # Valor por defecto
+        collection = data.get("collection", "documentos")
 
         if not question:
             return {"message": "Debe proporcionar una pregunta"}, 400

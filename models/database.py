@@ -6,5 +6,5 @@ def setup_db(app):
     """Inicializa la base de datos y crea las tablas si no existen."""
     db.init_app(app)
     with app.app_context():
-        db.create_all()  # ✅ Asegura que las tablas sean creadas
-        print("✅ Base de datos inicializada correctamente.")
+        db.create_all() 
+        print("Base de datos inicializada correctamente.")

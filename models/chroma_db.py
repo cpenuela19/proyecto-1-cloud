@@ -13,48 +13,47 @@ class ChromaDB:
                 embedding_function=self.embeddings,
                 collection_name=collection_name
             )
-            print("✅ ChromaDB inicializado correctamente.")
+            print("ChromaDB inicializado correctamente.")
         except Exception as e:
-            print(f"❌ Error inicializando ChromaDB: {e}")
+            print(f"Error inicializando ChromaDB: {e}")
             self.vector_store = None
 
     def add_embedding(self, document_id, text):
         """Convierte texto en embeddings y lo almacena en Chroma"""
         if not self.vector_store:
-            print("❌ ChromaDB no está disponible")
+            print("ChromaDB no está disponible")
             return {"message": "ChromaDB no está disponible"}
 
-        print(f"📌 Generando embeddings para documento {document_id}...")
+        print(f"Generando embeddings para documento {document_id}...")
 
         try:
-            # Asegurar que el modelo de embeddings está disponible
             if not self.embeddings:
-                print("❌ Error: Modelo de embeddings no inicializado.")
+                print("Error: Modelo de embeddings no inicializado.")
                 return {"message": "Error: Modelo de embeddings no inicializado"}
 
             try:
                 embeddings = self.embeddings.embed_documents([text])
             except Exception as e:
-                print(f"🔥 Error al generar embeddings: {e}")
+                print(f"Error al generar embeddings: {e}")
                 return {"message": f"Error al generar embeddings: {e}"}
 
             if not embeddings or len(embeddings) == 0:
-                print("❌ Error: Embeddings vacíos o no generados.")
+                print("Error: Embeddings vacíos o no generados.")
                 return {"message": "Error: Embeddings no generados"}
 
-            print(f"✅ Embeddings generados: {embeddings[:5]}")  # Muestra solo 5
+            print(f"Embeddings generados: {embeddings[:5]}")  # Muestra solo 5
 
             try:
                 doc = Document(page_content=text, metadata={"document_id": document_id})
                 self.vector_store.add_documents([doc])
             except Exception as e:
-                print(f"🔥 Error al insertar en ChromaDB: {e}")
+                print(f"Error al insertar en ChromaDB: {e}")
                 return {"message": f"Error al insertar en ChromaDB: {e}"}
 
             return {"message": "Documento almacenado en ChromaDB"}
 
         except Exception as e:
-            print(f"❌ Error inesperado en add_embedding: {e}")
+            print(f"Error inesperado en add_embedding: {e}")
             return {"message": f"Error inesperado en add_embedding: {e}"}
 
 
@@ -62,7 +61,7 @@ class ChromaDB:
     def search(self, query, k=5, with_score=False):
         """Realiza una búsqueda semántica en ChromaDB y devuelve documentos con score"""
         if not self.vector_store:
-            print("❌ ChromaDB no está disponible")
+            print("ChromaDB no está disponible")
             return []
 
         try:
@@ -71,10 +70,10 @@ class ChromaDB:
             else:
                 results = self.vector_store.similarity_search(query, k=k)
 
-            print(f"🔎 Resultados de búsqueda en ChromaDB: {results}")
+            print(f"Resultados de búsqueda en ChromaDB: {results}")
             return results
         except Exception as e:
-            print(f"❌ Error en la búsqueda de ChromaDB: {e}")
+            print(f"Error en la búsqueda de ChromaDB: {e}")
             return []
 
     def list_documents(self):
@@ -84,10 +83,10 @@ class ChromaDB:
 
         try:
             docs = self.vector_store.get()
-            print(f"📄 Documentos en ChromaDB: {docs}")
+            print(f"Documentos en ChromaDB: {docs}")
             return docs
         except Exception as e:
-            print(f"❌ Error al listar documentos en ChromaDB: {e}")
+            print(f"Error al listar documentos en ChromaDB: {e}")
             return []
 
 # Instancia global de ChromaDB

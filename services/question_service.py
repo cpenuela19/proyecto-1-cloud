@@ -17,8 +17,8 @@ class QuestionService:
     @staticmethod
     def retrieve(state: State):
         """Recupera documentos similares desde Chroma"""
-        chroma_path = "chroma_db"  # Directorio donde se guardaron los embeddings
-        collection_name = state["collection"]  # Nombre de la colección en Chroma
+        chroma_path = "chroma_db"
+        collection_name = state["collection"]
 
         embeddings = OllamaEmbeddings(
             model="llama3:8b",
