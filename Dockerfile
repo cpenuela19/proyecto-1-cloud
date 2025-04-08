@@ -1,10 +1,7 @@
-FROM python:3.10
+FROM python:3.10-slim
 
-# Instalar dependencias del sistema y Ollama
+# Instalar dependencias básicas
 RUN apt-get update && apt-get install -y curl git && rm -rf /var/lib/apt/lists/*
-
-# Instalar Ollama
-RUN curl -fsSL https://ollama.com/install.sh | bash
 
 # Crear directorio de trabajo
 WORKDIR /app
@@ -15,5 +12,5 @@ COPY . .
 # Instalar dependencias de Python
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Definir comando de inicio
+# Comando por defecto (puedes sobreescribirlo desde docker-compose)
 CMD ["python", "app.py"]

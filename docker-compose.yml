@@ -1,34 +1,20 @@
-version: '3.8'
-
 services:
-  ollama:
-    image: ollama/ollama  # Imagen oficial de Ollama
-    container_name: ollama
-    restart: always
-    ports:
-      - "11434:11434"
-    volumes:
-      - ollama_data:/root/.ollama  # Volumen para persistir modelos
-
   flask_app:
     build: .
     container_name: flask_app
     restart: always
-    depends_on:
-      - ollama  # Flask no se ejecuta hasta que Ollama esté corriendo
     ports:
       - "5000:5000"
     environment:
       - CHROMA_PATH=/app/chroma_db
-      - OLLAMA_BASE_URL=http://ollama:11434  # Conectar Flask a Ollama
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
     volumes:
-      - .:/app  # Para desarrollo, monta el código local
-      - chroma_data:/app/chroma_db  # Persistencia de ChromaDB
-      - instance_data:/app/instance  # Persistencia de SQLite
+      - .:/app
+      - chroma_data:/app/chroma_db
+      - instance_data:/app/instance
     command: >
-      sh -c "ollama pull llama3:8b && python app.py"
+      sh -c "python app.py"
 
 volumes:
-  ollama_data:
   chroma_data:
   instance_data:
