@@ -1,0 +1,6 @@
+celery==5.3.1
+redis==4.5.5
+langchain==0.0.267
+langchain-chroma==0.0.3
+langchain-ollama==0.0.1
+langgraph==0.0.15

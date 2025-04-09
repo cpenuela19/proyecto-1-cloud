@@ -2,6 +2,8 @@ from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_restful import Api
+from views.task_status import TaskStatus
+
 
 from models.database import db, setup_db  # ✅ Asegurar que `setup_db` se importe
 from models.chroma_db import chroma_db  # Base de datos vectorial en Chroma
@@ -35,7 +37,7 @@ api.add_resource(ProcessDocument, "/process")
 api.add_resource(SearchSimilarDocuments, "/search")
 api.add_resource(AskQuestion, "/ask")  # 🔥 Nuevo endpoint de preguntas
 api.add_resource(ListIndexedDocuments, "/list_indexed")
-
+api.add_resource(TaskStatus, "/task/<string:task_id>")
 if __name__ == "__main__":
     with app.app_context():
         try:
